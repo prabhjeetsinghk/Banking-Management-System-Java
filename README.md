@@ -1,7 +1,3 @@
-Here’s a clean and professional **GitHub repository description** for your project:
-
----
-
 ### **Banking Management System (Java - Spring Boot)**
 
 A full-stack **Banking Management System** built using **Spring Boot**, designed to manage customer accounts, transactions, and banking operations efficiently. The system supports core functionalities such as **account creation, balance inquiry, deposits, withdrawals, fund transfers**, and **transaction history tracking**.
@@ -28,7 +24,3 @@ A full-stack **Banking Management System** built using **Spring Boot**, designed
 * Integration with third-party payment APIs
 * Microservice architecture migration
 * Web-based UI using React/Angular
-
----
-
-Would you like me to write a **short version** (for the top of your GitHub repo) and a **detailed README** section separately? That’s often the best combo for a professional-looking repository.
