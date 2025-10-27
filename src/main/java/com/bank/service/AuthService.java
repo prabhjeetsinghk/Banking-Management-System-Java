@@ -5,28 +5,31 @@ import com.bank.repository.UserRepository;
 import com.bank.security.JwtTokenUtil;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AuthService {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenUtil jwtTokenUtil;
     private final GoogleAuthenticator gAuth = new GoogleAuthenticator();
+
+    public AuthService(UserRepository userRepository,
+            PasswordEncoder passwordEncoder,
+            JwtTokenUtil jwtTokenUtil) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtTokenUtil = jwtTokenUtil;
+    }
 
     // --- Register ---
     public String register(String username, String email, String password, boolean enable2FA) {
         if (userRepository.findByUsername(username).isPresent()) {
-            throw new RuntimeException("Username already exists");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
         }
 
         User user = new User();
@@ -41,29 +44,26 @@ public class AuthService {
         }
 
         userRepository.save(user);
-        return enable2FA ? user.getTwoFactorSecret() : "Registered successfully (2FA disabled)";
+        return enable2FA
+                ? "2FA enabled. Please scan the QR code with your authenticator app."
+                : "Registered successfully (2FA disabled)";
     }
 
     // --- Login ---
     public String login(String username, String password, Integer otp) {
-        Optional<User> optionalUser = userRepository.findByUsername(username);
-        if (optionalUser.isEmpty())
-            throw new RuntimeException("Invalid username/password");
-
-        User user = optionalUser.get();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid username/password"));
 
         if (!passwordEncoder.matches(password, user.getPassword()))
-            throw new RuntimeException("Invalid username/password");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid username/password");
 
-        // Handle 2FA
         if (user.isTwoFactorEnabled()) {
             if (otp == null)
-                throw new RuntimeException("OTP required for 2FA-enabled account");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "OTP required for 2FA-enabled account");
             if (!gAuth.authorize(user.getTwoFactorSecret(), otp))
-                throw new RuntimeException("Invalid OTP");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid OTP");
         }
 
-        // Generate JWT token
         return jwtTokenUtil.generateToken(username);
     }
 }

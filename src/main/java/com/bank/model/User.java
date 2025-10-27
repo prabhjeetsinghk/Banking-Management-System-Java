@@ -2,10 +2,16 @@ package com.bank.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 /**
  * Represents a user (customer or admin) in the banking system.
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
@@ -26,7 +32,7 @@ public class User {
     @Column(nullable = false)
     private boolean enabled = true;
 
-    @Column(nullable = false)
+    @Column(name = "user_role", nullable = false)
     private String role = "ROLE_USER"; // Default role
 
     @Column
@@ -35,9 +41,11 @@ public class User {
     @Column
     private boolean twoFactorEnabled = false;
 
-    @Column
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-    // Getters & Setters
-    // ... (for brevity, include all standard getters/setters)
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 }
