@@ -41,9 +41,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     // Simple authority example
                     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                             username, null, List.of(new SimpleGrantedAuthority("ROLE_USER"))
-                    SecurityContextHolder.getContext().setAuthentication(auth);
                     );
-                }
+                    SecurityContextHolder.getContext().setAuthentication(auth);
+                }else {
+                    // ADDED THIS BLOCK: Token was present but validation returned false
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token");
+                    return;
+                }
             }catch (JwtException ex) {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired JWT token");
                     return;
