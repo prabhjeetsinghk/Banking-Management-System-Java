@@ -12,7 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @Service
 public class AuthService {
 

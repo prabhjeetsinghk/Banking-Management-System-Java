@@ -15,6 +15,7 @@ import com.bank.security.JwtTokenUtil;
 
 import java.io.IOException;
 import java.util.List;
+import org.springframework.lang.NonNull;
 
 /**
  * Validates JWT token for incoming requests.
@@ -29,16 +30,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    protected boolean shouldNotFilter(@NonNull HttpServletRequest request) throws ServletException {
     String path = request.getServletPath();
     return path.startsWith("/api/auth");
     }
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(@NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
