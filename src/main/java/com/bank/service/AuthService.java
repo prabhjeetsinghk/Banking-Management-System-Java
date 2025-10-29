@@ -10,6 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import lombok.extern.slf4j.Slf4j;
+
+
 @Service
 public class AuthService {
 
@@ -28,7 +31,10 @@ public class AuthService {
 
     // --- Register ---
     public String register(String username, String email, String password, boolean enable2FA) {
+        log.info("Registering new user: {}", username);
+        
         if (userRepository.findByUsername(username).isPresent()) {
+            log.warn("Registration failed — username {} already exists", username);            
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
         }
 
@@ -44,6 +50,8 @@ public class AuthService {
         }
 
         userRepository.save(user);
+        log.info("User {} registered successfully", username);
+        
         return enable2FA
                 ? "2FA enabled. Please scan the QR code with your authenticator app."
                 : "Registered successfully (2FA disabled)";
@@ -51,6 +59,8 @@ public class AuthService {
 
     // --- Login ---
     public String login(String username, String password, Integer otp) {
+        log.info("User attempting login: {}", username);
+        
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid username/password"));
 
