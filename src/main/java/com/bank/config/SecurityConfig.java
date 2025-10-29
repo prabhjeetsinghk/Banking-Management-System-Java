@@ -1,6 +1,5 @@
 package com.bank.config;
 
-import com.bank.security.JwtAuthenticationFilter; 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
