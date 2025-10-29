@@ -215,3 +215,25 @@ Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionExcep
 	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:165) ~[spring-context-6.1.13.jar:6.1.13]
 	... 91 common frames omitted
 
+2025-10-29T12:49:20.125-04:00  INFO 20312 --- [bank] [main] com.bank.bank.BankApplicationTests       : Starting BankApplicationTests using Java 21.0.8 with PID 20312 (started by HP in C:\Users\HP\Desktop\bank)
+2025-10-29T12:49:20.127-04:00 DEBUG 20312 --- [bank] [main] com.bank.bank.BankApplicationTests       : Running with Spring Boot v3.3.4, Spring v6.1.13
+2025-10-29T12:49:20.129-04:00  INFO 20312 --- [bank] [main] com.bank.bank.BankApplicationTests       : No active profile set, falling back to 1 default profile: "default"
+2025-10-29T12:49:22.140-04:00  INFO 20312 --- [bank] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29T12:49:22.309-04:00  INFO 20312 --- [bank] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 148 ms. Found 3 JPA repository interfaces.
+2025-10-29T12:49:23.471-04:00  INFO 20312 --- [bank] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29T12:49:23.619-04:00  INFO 20312 --- [bank] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-10-29T12:49:23.714-04:00  INFO 20312 --- [bank] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-29T12:49:24.602-04:00  INFO 20312 --- [bank] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29T12:49:24.652-04:00  WARN 20312 --- [bank] [main] com.zaxxer.hikari.HikariConfig           : HikariPool-1 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+2025-10-29T12:49:24.653-04:00  INFO 20312 --- [bank] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-29T12:49:25.365-04:00  INFO 20312 --- [bank] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@604c7e9b
+2025-10-29T12:49:25.371-04:00  INFO 20312 --- [bank] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-29T12:49:25.463-04:00  WARN 20312 --- [bank] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29T12:49:25.466-04:00  WARN 20312 --- [bank] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-10-29T12:49:27.178-04:00  INFO 20312 --- [bank] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29T12:49:27.351-04:00  INFO 20312 --- [bank] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T12:49:28.024-04:00  WARN 20312 --- [bank] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29T12:49:29.164-04:00  INFO 20312 --- [bank] [main] com.bank.bank.BankApplicationTests       : Started BankApplicationTests in 9.614 seconds (process running for 11.482)
+2025-10-29T12:49:29.866-04:00  INFO 20312 --- [bank] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T12:49:29.876-04:00  INFO 20312 --- [bank] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-29T12:49:29.929-04:00  INFO 20312 --- [bank] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
