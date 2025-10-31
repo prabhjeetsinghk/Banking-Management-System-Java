@@ -1,6 +1,9 @@
 package com.bank.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -8,6 +11,8 @@ import java.time.LocalDateTime;
  * Represents a transaction between two accounts.
  */
 @Entity
+@Getter
+@Setter
 @Table(name = "transactions")
 public class Transaction {
 
@@ -22,6 +27,9 @@ public class Transaction {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "to_account_id", nullable = false)
     private Account toAccount;
+
+    @Column(nullable = false)
+    private String type; // "DEPOSIT", "WITHDRAWAL", "TRANSFER"
 
     @Column(nullable = false)
     private BigDecimal amount;

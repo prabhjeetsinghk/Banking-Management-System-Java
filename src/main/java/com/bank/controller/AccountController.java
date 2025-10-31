@@ -2,7 +2,7 @@ package com.bank.controller;
 
 import com.bank.model.Account;
 import com.bank.service.AccountService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +13,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/accounts")
+@RequiredArgsConstructor
 public class AccountController {
 
-    @Autowired
-    private AccountService accountService;
+    private final AccountService accountService;
 
     // Create account for logged-in user
     @PostMapping("/create")
@@ -42,6 +42,17 @@ public class AccountController {
         BigDecimal amount = new BigDecimal(payload.get("amount").toString());
         Account account = accountService.withdraw(accountNumber, amount);
         return ResponseEntity.ok(account);
+    }
+
+    // Transfer between accounts
+    @PostMapping("/transfer")
+    public ResponseEntity<String> transfer(@RequestBody Map<String, Object> payload) {
+        String fromAccount = (String) payload.get("fromAccount");
+        String toAccount = (String) payload.get("toAccount");
+        BigDecimal amount = new BigDecimal(payload.get("amount").toString());
+
+        accountService.transfer(fromAccount, toAccount, amount);
+        return ResponseEntity.ok("Transfer successful");
     }
 
     // List all accounts of logged-in user

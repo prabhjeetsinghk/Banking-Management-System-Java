@@ -25,6 +25,7 @@ public class AuthController {
         return ResponseEntity.ok(Map.of("message", result));
     }
 
+    // Loging using the username
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, Object> payload) {
         String username = (String) payload.get("username");

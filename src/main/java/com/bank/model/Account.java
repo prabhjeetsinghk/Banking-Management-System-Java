@@ -1,6 +1,9 @@
 package com.bank.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -8,6 +11,8 @@ import java.time.LocalDateTime;
  * Represents a bank account for a user.
  */
 @Entity
+@Getter
+@Setter
 @Table(name = "accounts")
 public class Account {
 
