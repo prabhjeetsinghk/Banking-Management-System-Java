@@ -11,4 +11,10 @@ import java.util.List;
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
     // Find all transactions for a given account
     List<Transaction> findByAccount(Account account);
+    
+    // ✅ find transactions where the account is the sender
+    List<Transaction> findByFromAccount(Account fromAccount);
+
+    // ✅ find transactions where the account is the receiver
+    List<Transaction> findByToAccount(Account toAccount);
 }
