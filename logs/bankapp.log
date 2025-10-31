@@ -2205,3 +2205,6 @@ Caused by: org.springframework.data.mapping.PropertyReferenceException: No prope
 2025-10-31T12:59:47.166-04:00  INFO 3636 --- [bank] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
 2025-10-31T12:59:47.168-04:00  INFO 3636 --- [bank] [restartedMain] com.bank.BankApplication                 : Started BankApplication in 0.488 seconds (process running for 1387.118)
 2025-10-31T12:59:47.170-04:00  INFO 3636 --- [bank] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-10-31T13:00:32.268-04:00  INFO 3636 --- [bank] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-31T13:00:32.269-04:00  INFO 3636 --- [bank] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2025-10-31T13:00:32.273-04:00  INFO 3636 --- [bank] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
