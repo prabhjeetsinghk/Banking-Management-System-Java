@@ -3,8 +3,6 @@ package com.bank.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

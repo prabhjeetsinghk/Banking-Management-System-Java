@@ -1,10 +1,19 @@
 package com.bank.service;
 
+import com.bank.model.Account;
+import com.bank.model.Transaction;
 import com.bank.model.User;
+import com.bank.repository.AccountRepository;
+import com.bank.repository.TransactionRepository;
 import com.bank.repository.UserRepository;
 import com.bank.security.JwtTokenUtil;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,17 +27,22 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final AccountService accountService;
+    private final TransactionRepository transactionRepository;
+    private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenUtil jwtTokenUtil;
     private final GoogleAuthenticator gAuth = new GoogleAuthenticator();
 
     public AuthService(UserRepository userRepository,
             PasswordEncoder passwordEncoder,
-            JwtTokenUtil jwtTokenUtil, AccountService accountService) {
+            JwtTokenUtil jwtTokenUtil, AccountService accountService, TransactionRepository transactionRepository, 
+            AccountRepository accountRepository) {
         this.userRepository = userRepository;
         this.accountService = accountService;
         this.passwordEncoder = passwordEncoder;
+        this.accountRepository = accountRepository;
         this.jwtTokenUtil = jwtTokenUtil;
+        this.transactionRepository = transactionRepository;
     }
 
     // --- Register ---
@@ -52,7 +66,18 @@ public class AuthService {
         }
 
         User savedUser = userRepository.save(user);
-        accountService.createAccount(savedUser.getUsername());
+
+        // Create account record
+        Account account = accountService.createAccount(savedUser.getUsername());
+
+        // Create tx record
+        Transaction txn = new Transaction();
+        txn.setFromAccount(null);
+        txn.setToAccount(account);
+        txn.setAmount(BigDecimal.ZERO);
+        txn.setType("ACCOUNT_CREATION");
+        txn.setTransactionDate(LocalDateTime.now());
+        transactionRepository.save(txn);
 
         log.info("User {} registered successfully", username);
         
@@ -78,6 +103,13 @@ public class AuthService {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid OTP");
         }
 
-        return jwtTokenUtil.generateToken(username);
+        List<Account> accounts = accountRepository.findByUser(user);
+        if (accounts.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No account found for user");
+        }
+
+        String accountNumber = accounts.get(0).getAccountNumber();
+
+        return jwtTokenUtil.generateToken(username, accountNumber);
     }
 }

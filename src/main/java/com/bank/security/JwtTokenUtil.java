@@ -19,15 +19,36 @@ public class JwtTokenUtil {
     // Production: store securely (Vault, environment variable)
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    public String generateToken(String username) {
-        return Jwts.builder()
-                .setSubject(username)
+    // public String generateToken(String username, String accountNumber) {
+    //     return Jwts.builder()
+    //             .setSubject(username)
+    //             .setIssuer(ISSUER)
+    //             .setIssuedAt(new Date())
+    //             .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+    //             .signWith(key)
+    //             .compact();
+    // }
+
+    public String generateToken(String username, String accountNumber) {
+        return Jwts.builder()        // include the claims map
+                .setSubject(username)       // keep username as subject
                 .setIssuer(ISSUER)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .claim("accountNumber", accountNumber)
                 .signWith(key)
                 .compact();
+        }
+
+    public String getClaim(String token, String claimKey) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get(claimKey, String.class);
     }
+
 
     public String getUsernameFromToken(String token) {
         return Jwts.parserBuilder()
