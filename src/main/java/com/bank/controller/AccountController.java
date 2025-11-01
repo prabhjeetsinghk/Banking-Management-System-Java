@@ -34,6 +34,7 @@ public class AccountController {
         Account account = accountService.deposit(accountNumber, amount);
         return ResponseEntity.ok(account);
     }
+    
 
     // Withdraw from account
     @PostMapping("/withdraw")

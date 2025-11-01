@@ -44,7 +44,9 @@ public class AccountService {
 
         // Update balance
         account.setBalance(account.getBalance().add(amount));
-        Account savedAccount = accountRepository.save(account);
+
+
+        // Account savedAccount = accountRepository.save(account);
 
         // Log transaction
         Transaction txn = new Transaction();
@@ -55,7 +57,8 @@ public class AccountService {
         txn.setTransactionDate(LocalDateTime.now());
         transactionRepository.save(txn);
 
-        return savedAccount;
+        // return savedAccount;
+        return accountRepository.save(account);
     }
 
     // Withdraw money
@@ -70,7 +73,7 @@ public class AccountService {
 
         // Update balance
         account.setBalance(account.getBalance().subtract(amount));
-        Account savedAccount = accountRepository.save(account);
+        // Account savedAccount = accountRepository.save(account);
 
         // Log transaction
         Transaction txn = new Transaction();
@@ -81,7 +84,8 @@ public class AccountService {
         txn.setTransactionDate(LocalDateTime.now());
         transactionRepository.save(txn);
 
-        return savedAccount;
+        // return savedAccount;
+        return accountRepository.save(account);
     }
 
     // Transfer money between accounts

@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthService {
 
     private final UserRepository userRepository;
+    private final AccountService accountService;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenUtil jwtTokenUtil;
     private final GoogleAuthenticator gAuth = new GoogleAuthenticator();
@@ -25,6 +26,7 @@ public class AuthService {
             PasswordEncoder passwordEncoder,
             JwtTokenUtil jwtTokenUtil) {
         this.userRepository = userRepository;
+        this.accountService = accountService;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenUtil = jwtTokenUtil;
     }
@@ -49,7 +51,9 @@ public class AuthService {
             user.setTwoFactorSecret(key.getKey());
         }
 
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        accountService.createAccount(savedUser.getUsername());
+
         log.info("User {} registered successfully", username);
         
         return enable2FA
