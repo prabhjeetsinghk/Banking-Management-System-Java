@@ -8,6 +8,9 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Represents a transaction between two accounts.
  */
@@ -15,6 +18,7 @@ import java.time.LocalDateTime;
 @Getter
 @Data
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "transactions")
 public class Transaction {
 
@@ -24,10 +28,12 @@ public class Transaction {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_account_id", nullable = true)
+    @JsonIgnore 
     private Account fromAccount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "to_account_id", nullable = true)
+    @JsonIgnore
     private Account toAccount;
 
     @Column(nullable = false)
