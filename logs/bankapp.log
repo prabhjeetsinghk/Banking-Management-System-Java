@@ -2413,3 +2413,6 @@ com.bank.controller.PageController#transfer() mapped.
 2025-11-01T21:49:06.822-04:00  INFO 23344 --- [bank] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
 2025-11-01T21:49:06.824-04:00  INFO 23344 --- [bank] [restartedMain] com.bank.BankApplication                 : Started BankApplication in 0.622 seconds (process running for 483.874)
 2025-11-01T21:49:06.826-04:00  INFO 23344 --- [bank] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-11-01T21:53:27.584-04:00  INFO 23344 --- [bank] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-01T21:53:27.586-04:00  INFO 23344 --- [bank] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2025-11-01T21:53:27.592-04:00  INFO 23344 --- [bank] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
