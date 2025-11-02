@@ -17,4 +17,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     // ✅ find transactions where the account is the receiver
     List<Transaction> findByToAccount(Account toAccount);
+
+    List<Transaction> findTop5ByFromAccountOrToAccountOrderByTransactionDateDesc(Account fromAccount,
+            Account toAccount);
+
 }

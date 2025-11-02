@@ -27,30 +27,50 @@ public class SecurityConfig {
     //     this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     // }
 
+    // @Bean
+    // public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    //     http
+    //         .csrf(csrf -> csrf.disable())
+    //         .sessionManagement(session -> session
+    //             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    //         )
+    //         .authorizeHttpRequests(authz -> authz
+    //             .requestMatchers("/",
+    //                             "/login", 
+    //                             "/register", 
+    //                             "/css/**", 
+    //                             "/js/**",
+    //                             "/images/**", 
+    //                             "/api/auth/**" 
+    //                     ).permitAll() 
+    //             .anyRequest().authenticated()
+    //         )
+    //         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+    //     return http.build();
+    // }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // Disable CSRF since sessions are stateless (JWTs are immune to CSRF)
-            .csrf(csrf -> csrf.disable())
-
-            // Set session management to stateless, ensuring no session cookies are used
-            .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
-
-            // Define authorization rules
-            .authorizeHttpRequests(authz -> authz
-                // Public endpoints for authentication/registration
-                .requestMatchers("/api/auth/**").permitAll() 
-                // All other requests require authentication
-                .anyRequest().authenticated() 
-            )
-
-            // Add the custom JWT filter before the standard login filter
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authz -> authz
+                        // Public pages
+                        .requestMatchers(
+                                "/", "/login", "/register",
+                                "/css/**", "/js/**", "/images/**",
+                                "/api/auth/**")
+                        .permitAll()
+                        // All API endpoints require authentication
+                        .requestMatchers("/api/**").authenticated()
+                        // UI pages: allow browser access, but AJAX calls will still require JWT
+                        .requestMatchers("/dashboard", "/transfer").permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
+
     
     // Defines the PasswordEncoder used for hashing and verifying passwords
     @Bean

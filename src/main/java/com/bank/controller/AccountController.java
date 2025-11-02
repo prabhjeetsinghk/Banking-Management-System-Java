@@ -1,5 +1,6 @@
 package com.bank.controller;
 
+import com.bank.dto.TransactionDTO;
 import com.bank.model.Account;
 import com.bank.repository.AccountRepository;
 import com.bank.repository.UserRepository;
@@ -93,4 +94,27 @@ public class AccountController {
         List<Account> accounts = accountService.getAccountsByUser(username);
         return ResponseEntity.ok(accounts);
     }
+
+    // Get account balance
+    @GetMapping("/balance")
+    public ResponseEntity<BigDecimal> getBalance(@RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+        String accountNumber = jwtTokenUtil.getClaim(token, "accountNumber");
+        BigDecimal balance = accountService.getAccountBalance(accountNumber);
+        return ResponseEntity.ok(balance);
+    }
+
+    // Get last 5 transactions
+    @GetMapping("/transactions/recent")
+    public ResponseEntity<List<TransactionDTO>> getLast5Transactions(@RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+        String accountNumber = jwtTokenUtil.getClaim(token, "accountNumber");
+
+        List<TransactionDTO> transactions = accountService.getLast5TransactionDTOs(accountNumber);
+        return ResponseEntity.ok(transactions);
+    }
+
+
+
+
 }

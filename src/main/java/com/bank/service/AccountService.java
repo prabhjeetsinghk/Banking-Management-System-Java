@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bank.dto.TransactionDTO;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -111,18 +113,44 @@ public class AccountService {
         Transaction outTxn = new Transaction();
         outTxn.setFromAccount(fromAccount);
         outTxn.setToAccount(toAccount);
-        outTxn.setType("TRANSFER_OUT");
+        outTxn.setType("TRANSFER");
         outTxn.setAmount(amount);
         outTxn.setTransactionDate(LocalDateTime.now());
         transactionRepository.save(outTxn);
 
-        Transaction inTxn = new Transaction();
-        inTxn.setFromAccount(fromAccount);
-        inTxn.setToAccount(toAccount);
-        inTxn.setType("TRANSFER_IN");
-        inTxn.setAmount(amount);
-        inTxn.setTransactionDate(LocalDateTime.now());
-        transactionRepository.save(inTxn);
+        // Transaction inTxn = new Transaction();
+        // inTxn.setFromAccount(fromAccount);
+        // inTxn.setToAccount(toAccount);
+        // inTxn.setType("TRANSFER_IN");
+        // inTxn.setAmount(amount);
+        // inTxn.setTransactionDate(LocalDateTime.now());
+        // transactionRepository.save(inTxn);
+    }
+
+    // Get account balance
+    public BigDecimal getAccountBalance(String accountNumber) {
+        Account account = accountRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+        return account.getBalance();
+    }
+
+    @Transactional(readOnly = true)
+    public List<TransactionDTO> getLast5TransactionDTOs(String accountNumber) {
+        Account account = accountRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+
+        List<Transaction> last5 = transactionRepository
+                .findTop5ByFromAccountOrToAccountOrderByTransactionDateDesc(account, account);
+
+        return last5.stream()
+                .map(tx -> new TransactionDTO(
+                        tx.getId(),
+                        tx.getType(),
+                        tx.getAmount(),
+                        tx.getTransactionDate(),
+                        tx.getFromAccount() != null ? tx.getFromAccount().getUser().getEmail() : null,
+                        tx.getToAccount() != null ? tx.getToAccount().getUser().getEmail() : null))
+                .toList();
     }
 
     // List all accounts for a user
