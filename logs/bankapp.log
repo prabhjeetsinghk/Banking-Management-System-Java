@@ -2416,3 +2416,38 @@ com.bank.controller.PageController#transfer() mapped.
 2025-11-01T21:53:27.584-04:00  INFO 23344 --- [bank] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-11-01T21:53:27.586-04:00  INFO 23344 --- [bank] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
 2025-11-01T21:53:27.592-04:00  INFO 23344 --- [bank] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2025-11-01T21:53:38.928-04:00  INFO 14164 --- [bank] [restartedMain] com.bank.BankApplication                 : Starting BankApplication using Java 21.0.8 with PID 14164 (C:\Users\HP\Desktop\bank\target\classes started by HP in C:\Users\HP\Desktop\bank)
+2025-11-01T21:53:38.930-04:00 DEBUG 14164 --- [bank] [restartedMain] com.bank.BankApplication                 : Running with Spring Boot v3.3.4, Spring v6.1.13
+2025-11-01T21:53:38.931-04:00  INFO 14164 --- [bank] [restartedMain] com.bank.BankApplication                 : No active profile set, falling back to 1 default profile: "default"
+2025-11-01T21:53:38.999-04:00  INFO 14164 --- [bank] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-11-01T21:53:38.999-04:00  INFO 14164 --- [bank] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-11-01T21:53:39.621-04:00  INFO 14164 --- [bank] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-01T21:53:39.680-04:00  INFO 14164 --- [bank] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 51 ms. Found 3 JPA repository interfaces.
+2025-11-01T21:53:40.152-04:00  INFO 14164 --- [bank] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-11-01T21:53:40.162-04:00  INFO 14164 --- [bank] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-01T21:53:40.162-04:00  INFO 14164 --- [bank] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2025-11-01T21:53:40.209-04:00  INFO 14164 --- [bank] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-01T21:53:40.209-04:00  INFO 14164 --- [bank] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1209 ms
+2025-11-01T21:53:40.314-04:00  INFO 14164 --- [bank] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-01T21:53:40.354-04:00  INFO 14164 --- [bank] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-11-01T21:53:40.380-04:00  INFO 14164 --- [bank] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-11-01T21:53:40.591-04:00  INFO 14164 --- [bank] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-01T21:53:40.612-04:00  WARN 14164 --- [bank] [restartedMain] com.zaxxer.hikari.HikariConfig           : HikariPool-1 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+2025-11-01T21:53:40.613-04:00  INFO 14164 --- [bank] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-11-01T21:53:40.763-04:00  INFO 14164 --- [bank] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7e85b503
+2025-11-01T21:53:40.765-04:00  INFO 14164 --- [bank] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-11-01T21:53:40.797-04:00  WARN 14164 --- [bank] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-01T21:53:40.799-04:00  WARN 14164 --- [bank] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-11-01T21:53:41.443-04:00  INFO 14164 --- [bank] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-01T21:53:41.502-04:00  INFO 14164 --- [bank] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-01T21:53:41.729-04:00 DEBUG 14164 --- [bank] [restartedMain] c.bank.config.JwtAuthenticationFilter    : Filter 'jwtAuthenticationFilter' configured for use
+2025-11-01T21:53:41.837-04:00  WARN 14164 --- [bank] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-01T21:53:41.851-04:00  INFO 14164 --- [bank] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userService
+2025-11-01T21:53:42.196-04:00  INFO 14164 --- [bank] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-11-01T21:53:42.221-04:00  INFO 14164 --- [bank] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-11-01T21:53:42.227-04:00  INFO 14164 --- [bank] [restartedMain] com.bank.BankApplication                 : Started BankApplication in 3.672 seconds (process running for 4.021)
+2025-11-01T21:53:51.409-04:00  INFO 14164 --- [bank] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-01T21:53:51.411-04:00  INFO 14164 --- [bank] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-01T21:53:51.415-04:00  INFO 14164 --- [bank] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-11-01T21:54:07.984-04:00  INFO 14164 --- [bank] [http-nio-8080-exec-8] com.bank.service.AuthService             : User attempting login: userA
+2025-11-01T21:54:34.872-04:00  WARN 14164 --- [bank] [http-nio-8080-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.RuntimeException: Recipient user not found]
