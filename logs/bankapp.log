@@ -2451,3 +2451,6 @@ com.bank.controller.PageController#transfer() mapped.
 2025-11-01T21:53:51.415-04:00  INFO 14164 --- [bank] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 2025-11-01T21:54:07.984-04:00  INFO 14164 --- [bank] [http-nio-8080-exec-8] com.bank.service.AuthService             : User attempting login: userA
 2025-11-01T21:54:34.872-04:00  WARN 14164 --- [bank] [http-nio-8080-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.RuntimeException: Recipient user not found]
+2025-11-01T21:57:23.981-04:00  INFO 14164 --- [bank] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-01T21:57:23.984-04:00  INFO 14164 --- [bank] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-11-01T21:57:23.990-04:00  INFO 14164 --- [bank] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
